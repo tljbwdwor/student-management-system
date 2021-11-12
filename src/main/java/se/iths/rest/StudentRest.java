@@ -32,6 +32,11 @@ public class StudentRest {
     @GET
     public Response getAllStudents() {
         List<Student> studentList = studentService.findAllStudents();
+        if (studentList.isEmpty()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+            .entity("Student database currently has no entries.")
+            .type(MediaType.TEXT_PLAIN_TYPE).build());
+        } else
         return Response
                 .status(200)
                 .entity(studentList).build();
