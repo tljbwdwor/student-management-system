@@ -41,6 +41,11 @@ public class StudentRest {
     @GET
     public Response getStudentById(@PathParam("id") Long id) {
         Student student = studentService.findStudentById(id);
+        if (student == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("Student with ID " + id + " was not found in the database.")
+                    .type(MediaType.TEXT_PLAIN_TYPE).build());
+        } else
         return Response
                 .status(200)
                 .entity(student).build();
