@@ -7,7 +7,9 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Path("student")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -42,6 +44,23 @@ public class StudentRest {
         return Response
                 .status(200)
                 .entity(student).build();
+    }
+
+    @Path("getbylastname")
+    @GET
+    public Response getStudentsByLastName(@QueryParam("lastname") String lastName) {
+        List<Student> allStudents = studentService.findAllStudents();
+        List<Student> filteredList = new ArrayList<>();
+
+        for (Student student: allStudents)
+        {
+            if (student.getLastName().equals(lastName)) {
+                Objects.requireNonNull(filteredList).add(student);
+            }
+        }
+        return Response
+                .status(200)
+                .entity(filteredList).build();
     }
 
     @Path("replace")
