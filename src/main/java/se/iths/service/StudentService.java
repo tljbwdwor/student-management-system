@@ -47,9 +47,9 @@ public class StudentService {
         return entityManager.find(Student.class, id);
     }
 
-    public Student updatePhone(Long id, String phone) {
+    public Student updatePhoneNumber(Long id, String phoneNumber) {
         Student foundStudent = entityManager.find(Student.class, id);
-        foundStudent.setPhoneNumber(phone);
+        foundStudent.setPhoneNumber(phoneNumber);
         return entityManager.find(Student.class, id);
     }
 

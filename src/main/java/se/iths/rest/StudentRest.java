@@ -53,6 +53,42 @@ public class StudentRest {
                 .entity(student).build();
     }
 
+    @Path("update/firstname/{id}")
+    @PATCH
+    public Response updateFirstName(@PathParam("id") Long id, @QueryParam("firstname") String firstName) {
+        Student student = studentService.updateFirstName(id, firstName);
+        return Response
+                .status(202)
+                .entity(student).build();
+    }
+
+    @Path("update/lastname/{id}")
+    @PATCH
+    public Response updateLastName(@PathParam("id") Long id, @QueryParam("lastname") String lastName) {
+        Student student = studentService.updateLastName(id, lastName);
+        return Response
+                .status(202)
+                .entity(student).build();
+    }
+
+    @Path("update/email/{id}")
+    @PATCH
+    public Response updateEmail(@PathParam("id") Long id, @QueryParam("email") String email) {
+        Student student = studentService.updateEmail(id, email);
+        return Response
+                .status(202)
+                .entity(student).build();
+    }
+
+    @Path("update/phonenumber/{id}")
+    @PATCH
+    public Response updatePhoneNumber(@PathParam("id") Long id, @QueryParam("phonenumber") String phoneNumber) {
+        Student student = studentService.updatePhoneNumber(id, phoneNumber);
+        return Response
+                .status(202)
+                .entity(student).build();
+    }
+
     @Path("delete/{id}")
     @DELETE
     public Response deleteStudent(@PathParam("id") Long id) {
