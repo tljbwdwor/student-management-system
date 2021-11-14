@@ -22,6 +22,24 @@ public class StudentRest {
     @Path("create")
     @POST
     public Response createStudent(Student student) {
+        if (student.getFirstName().isEmpty() || student.getFirstName().getBytes().length < 2) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+            .entity("message: firstNameRequiredMin2Characters")
+            .type(MediaType.APPLICATION_JSON).build());
+        }
+
+        if (student.getLastName().isEmpty() || student.getLastName().getBytes().length < 2) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+            .entity("message: lastNameRequiredMin2Characters")
+            .type(MediaType.APPLICATION_JSON).build());
+        }
+
+        if (student.getEmail().isEmpty() || student.getEmail().isBlank()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+            .entity("message: emailRequired")
+            .type(MediaType.APPLICATION_JSON).build());
+        }
+
         studentService.createStudent(student);
         return Response
                 .status(201)
@@ -34,8 +52,8 @@ public class StudentRest {
         List<Student> studentList = studentService.findAllStudents();
         if (studentList.isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-            .entity("Student database currently has no entries.")
-            .type(MediaType.TEXT_PLAIN_TYPE).build());
+            .entity("message: databaseContainsNoRecords")
+            .type(MediaType.APPLICATION_JSON).build());
         } else
         return Response
                 .status(200)
@@ -48,8 +66,8 @@ public class StudentRest {
         Student student = studentService.findStudentById(id);
         if (student == null) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("Student with ID " + id + " was not found in the database.")
-                    .type(MediaType.TEXT_PLAIN_TYPE).build());
+                    .entity("message: noRecordOfId " + id)
+                    .type(MediaType.APPLICATION_JSON).build());
         } else
         return Response
                 .status(200)
@@ -71,8 +89,8 @@ public class StudentRest {
 
         if (filteredList.isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-            .entity("No students found with last name of " + lastName)
-            .type(MediaType.TEXT_PLAIN_TYPE).build());
+            .entity("message: noStudentsWithLastNameOf " + lastName)
+            .type(MediaType.APPLICATION_JSON).build());
         } else
         return Response
                 .status(200)
@@ -82,6 +100,21 @@ public class StudentRest {
     @Path("replace")
     @PUT
     public Response replaceStudent(Student student) {
+        if (student.getFirstName().isEmpty() || student.getFirstName().getBytes().length < 2) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+            .entity("message: firstNameInvalid")
+            .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        if (student.getLastName().isEmpty() || student.getLastName().getBytes().length < 2) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+            .entity("message: lastNameInvalid")
+            .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        if (student.getEmail().isEmpty()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity("message: emailInvalid")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
         studentService.replaceStudent(student);
         return Response
                 .status(202)
@@ -91,6 +124,16 @@ public class StudentRest {
     @Path("update/firstname/{id}")
     @PATCH
     public Response updateFirstName(@PathParam("id") Long id, @QueryParam("firstname") String firstName) {
+        if (studentService.findStudentById(id) == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("message: noRecordToUpdate")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        if (firstName.isEmpty() || firstName.getBytes().length < 2) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+            .entity("message: firstNameRequiresMin2Characters")
+            .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
         Student student = studentService.updateFirstName(id, firstName);
         return Response
                 .status(202)
@@ -100,6 +143,16 @@ public class StudentRest {
     @Path("update/lastname/{id}")
     @PATCH
     public Response updateLastName(@PathParam("id") Long id, @QueryParam("lastname") String lastName) {
+        if (studentService.findStudentById(id) == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("message: noRecordToUpdate")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        if (lastName.isEmpty() || lastName.getBytes().length < 2) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity("message: lastNameRequiresMin2Characters")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
         Student student = studentService.updateLastName(id, lastName);
         return Response
                 .status(202)
@@ -109,6 +162,16 @@ public class StudentRest {
     @Path("update/email/{id}")
     @PATCH
     public Response updateEmail(@PathParam("id") Long id, @QueryParam("email") String email) {
+        if (studentService.findStudentById(id) == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("message: noRecordToUpdate")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        if (email.isEmpty()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity("message: emailFieldIsEmpty")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
         Student student = studentService.updateEmail(id, email);
         return Response
                 .status(202)
@@ -118,6 +181,16 @@ public class StudentRest {
     @Path("update/phonenumber/{id}")
     @PATCH
     public Response updatePhoneNumber(@PathParam("id") Long id, @QueryParam("phonenumber") String phoneNumber) {
+        if (studentService.findStudentById(id) == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("message: noRecordToUpdate")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
+        if (phoneNumber.isEmpty() || ((phoneNumber.getBytes().length < 9) || (phoneNumber.getBytes().length > 13))) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
+                    .entity("message: invalidPhoneNumber")
+                    .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
         Student student = studentService.updatePhoneNumber(id, phoneNumber);
         return Response
                 .status(202)
@@ -127,8 +200,15 @@ public class StudentRest {
     @Path("delete/{id}")
     @DELETE
     public Response deleteStudent(@PathParam("id") Long id) {
+        if (studentService.findStudentById(id) == null) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+            .entity("message: noRecordToDelete")
+            .type(MediaType.APPLICATION_JSON_TYPE).build());
+        }
         studentService.deleteStudent(id);
-        return Response.status(202).build();
+        return Response
+                .status(202)
+                .entity("message: deletedEntryWithId" + id).build();
     }
 
 }
