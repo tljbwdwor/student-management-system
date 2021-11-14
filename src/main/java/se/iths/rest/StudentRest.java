@@ -68,6 +68,12 @@ public class StudentRest {
                 Objects.requireNonNull(filteredList).add(student);
             }
         }
+
+        if (filteredList.isEmpty()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+            .entity("No students found with last name of " + lastName)
+            .type(MediaType.TEXT_PLAIN_TYPE).build());
+        } else
         return Response
                 .status(200)
                 .entity(filteredList).build();
