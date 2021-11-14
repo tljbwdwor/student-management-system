@@ -5,7 +5,7 @@ To test the app:
    
 The system will boot with no data in the database, so you must add entries to test. 
 
-The requirements are a JSON formatted objects. All fields are mandatory except phoneNumber. Objects should take the 
+Entries must be JSON formatted objects. All fields are mandatory except phoneNumber. Objects should take the 
 following form:
 
 {
