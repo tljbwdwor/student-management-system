@@ -36,7 +36,7 @@ public class StudentRest {
     @Path("getall")
     @GET
     public Response getAllStudents() {
-        if (validation.verifyListNotEmpty()) {
+        if (validation.verifyDatabaseNotEmpty()) {
             List<Student> studentList = studentService.findAllStudents();
             return Response
                     .status(200)
@@ -61,21 +61,17 @@ public class StudentRest {
         List<Student> allStudents = studentService.findAllStudents();
         List<Student> filteredList = new ArrayList<>();
 
-        for (Student student: allStudents)
-        {
-            if (student.getLastName().equals(lastName)) {
+        for (Student student : allStudents) {
+            if (student.getLastName().equalsIgnoreCase(lastName)) {
                 Objects.requireNonNull(filteredList).add(student);
             }
         }
 
-        if (filteredList.isEmpty()) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-            .entity("message: noStudentsWithLastNameOf " + lastName)
-            .type(MediaType.APPLICATION_JSON).build());
-        } else
-        return Response
-                .status(200)
-                .entity(filteredList).build();
+        if (validation.verifyLastNameListNotEmpty(filteredList, lastName)) {
+            return Response
+                    .status(200)
+                    .entity(filteredList).build();
+        } else return Response.status(404).build();
     }
 
     @Path("replace")

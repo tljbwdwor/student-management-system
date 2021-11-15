@@ -79,12 +79,20 @@ public class Validation {
         } else return true;
     }
 
-    public boolean verifyListNotEmpty() {
+    public boolean verifyDatabaseNotEmpty() {
         List<Student> studentList = studentService.findAllStudents();
         if (studentList.isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
                     .entity("message: databaseContainsNoRecords")
                     .type(MediaType.APPLICATION_JSON_TYPE).build());
+        } else return true;
+    }
+
+    public boolean verifyLastNameListNotEmpty(List<Student> list, String lastname) {
+        if (list.isEmpty()) {
+            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
+                    .entity("message: noStudentsWithLastNameOf " + lastname)
+                    .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
 
