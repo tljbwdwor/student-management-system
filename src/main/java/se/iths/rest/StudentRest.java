@@ -60,7 +60,7 @@ public class StudentRest {
         if (studentList.isEmpty()) {
             return Response
                     .status(404).
-                    entity("No students with last name of " + lastName)
+                    entity("message: noStudentsWithLastNameOf " + lastName)
                     .build();
         } else return Response
                 .ok(studentList)
