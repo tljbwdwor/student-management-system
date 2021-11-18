@@ -8,9 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Path("student")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -58,20 +56,15 @@ public class StudentRest {
     @Path("getbylastname")
     @GET
     public Response getStudentsByLastName(@QueryParam("lastname") String lastName) {
-        List<Student> allStudents = studentService.findAllStudents();
-        List<Student> filteredList = new ArrayList<>();
-
-        for (Student student : allStudents) {
-            if (student.getLastName().equalsIgnoreCase(lastName)) {
-                Objects.requireNonNull(filteredList).add(student);
-            }
-        }
-
-        if (validation.verifyLastNameListNotEmpty(filteredList, lastName)) {
+        List<Student> studentList = studentService.findStudentByLastName(lastName);
+        if (studentList.isEmpty()) {
             return Response
-                    .status(200)
-                    .entity(filteredList).build();
-        } else return Response.status(404).build();
+                    .status(404).
+                    entity("No students with last name of " + lastName)
+                    .build();
+        } else return Response
+                .ok(studentList)
+                .build();
     }
 
     @Path("replace")

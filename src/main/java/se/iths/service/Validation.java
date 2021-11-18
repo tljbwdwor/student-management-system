@@ -88,12 +88,4 @@ public class Validation {
         } else return true;
     }
 
-    public boolean verifyLastNameListNotEmpty(List<Student> list, String lastname) {
-        if (list.isEmpty()) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("message: noStudentsWithLastNameOf " + lastname)
-                    .type(MediaType.APPLICATION_JSON).build());
-        } else return true;
-    }
-
 }
