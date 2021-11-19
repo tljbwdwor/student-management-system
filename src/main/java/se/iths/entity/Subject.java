@@ -17,12 +17,15 @@ public class Subject {
     private String name;
     @ManyToMany
     private List<Student> enrolledStudents = new ArrayList<>();
+    @ManyToOne
+    private Teacher teacher;
 
 
     public Subject() {}
 
-    public Subject(@NotEmpty @Size(min = 2) String name, List<Student> enrolledStudents) {
+    public Subject(@NotEmpty @Size(min = 2) String name, Teacher teacher, List<Student> enrolledStudents) {
         this.name = name;
+        this.teacher = teacher;
         this.enrolledStudents = enrolledStudents;
     }
 
@@ -54,5 +57,12 @@ public class Subject {
         this.enrolledStudents = enrolledStudents;
     }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
 
 }

@@ -1,5 +1,6 @@
 package se.iths.rest;
 
+import se.iths.Validator.SubjectValidator;
 import se.iths.Validator.TeacherValidator;
 import se.iths.entity.Teacher;
 import se.iths.service.TeacherService;
@@ -19,6 +20,8 @@ public class TeacherRest {
     TeacherService teacherService;
     @Inject
     TeacherValidator teacherValidator;
+    @Inject
+    SubjectValidator subjectValidator;
 
     @Path("create")
     @POST
@@ -130,6 +133,17 @@ public class TeacherRest {
             return Response
                     .status(202)
                     .entity("message: deletedTeacherWithId" + id).build();
+        } else return Response.notModified().build();
+    }
+
+    @Path("addsubject/{teacher_id}/{subject_id}")
+    @PUT
+    public Response addSubject(@PathParam("teacher_id") long teacher_id, @PathParam("subject_id") long subject_id) {
+        if (teacherValidator.verifyTeacherExists(teacher_id) && subjectValidator.verifySubjectExists(subject_id)) {
+            teacherService.addTeacherToSubject(teacher_id,subject_id);
+            return Response
+                    .status(201)
+                    .entity("message: teacherAddedToSubject").build();
         } else return Response.notModified().build();
     }
 
