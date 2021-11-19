@@ -1,6 +1,8 @@
 package se.iths.rest;
 
+import se.iths.Validator.StudentValidator;
 import se.iths.Validator.SubjectValidator;
+import se.iths.Validator.TeacherValidator;
 import se.iths.entity.Subject;
 import se.iths.service.SubjectService;
 
@@ -19,6 +21,10 @@ public class SubjectRest {
     SubjectService subjectService;
     @Inject
     SubjectValidator subjectValidator;
+    @Inject
+    TeacherValidator teacherValidator;
+    @Inject
+    StudentValidator studentValidator;
 
     @Path("create")
     @POST
@@ -72,6 +78,28 @@ public class SubjectRest {
             return Response
                     .status(202)
                     .entity("message: deletedSubjectWithId" + id).build();
+        } else return Response.notModified().build();
+    }
+
+    @Path("removeteacher/{subject_id}")
+    @PUT
+    public Response removeTeacher(@PathParam("subject_id") Long subject_id) {
+        if (subjectValidator.verifySubjectExists(subject_id)) {
+            subjectService.removeTeacherFromSubject(subject_id);
+            return  Response
+                    .status(202)
+                    .entity("message: teacherRemovedFromSubject" + subject_id).build();
+        } else return Response.notModified().build();
+    }
+
+    @Path("removestudent/{subject_id}/{student_id}")
+    @PUT
+    public Response removeStudent(@PathParam("subject_id") Long subject_id, @PathParam("student_id") Long student_id) {
+        if (subjectValidator.verifySubjectExists(subject_id) && studentValidator.verifyStudentExists(student_id)) {
+            subjectService.removeStudentFromSubject(subject_id, student_id);
+            return Response
+                    .status(202)
+                    .entity("message: studentWithId" + student_id + "RemovedFromSubject" + subject_id).build();
         } else return Response.notModified().build();
     }
 }

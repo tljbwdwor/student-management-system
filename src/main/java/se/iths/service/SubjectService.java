@@ -1,5 +1,6 @@
 package se.iths.service;
 
+import se.iths.entity.Student;
 import se.iths.entity.Subject;
 
 import javax.persistence.EntityManager;
@@ -33,6 +34,17 @@ public class SubjectService {
     public void deleteSubject(Long id) {
         Subject subject = entityManager.find(Subject.class, id);
         entityManager.remove(subject);
+    }
+
+    public void removeTeacherFromSubject(Long id) {
+        Subject subject = entityManager.find(Subject.class, id);
+        subject.setTeacher(null);
+    }
+
+    public void removeStudentFromSubject(Long id, Long student_id) {
+        Subject subject = entityManager.find(Subject.class, id);
+        Student student = entityManager.find(Student.class, student_id);
+        student.getEnrolledCourses().remove(subject);
     }
 
 }

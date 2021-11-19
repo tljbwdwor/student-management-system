@@ -66,11 +66,10 @@ public class StudentService {
         entityManager.remove(student);
     }
 
-    public Student addSubjectToStudent(Long student_id, Long subject_id) {
+    public void addSubjectToStudent(Long student_id, Long subject_id) {
         Student student = entityManager.find(Student.class, student_id);
         Subject subject = entityManager.find(Subject.class, subject_id);
         student.addSubject(subject);
-        return student;
     }
 
 }
