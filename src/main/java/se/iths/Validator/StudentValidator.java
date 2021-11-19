@@ -1,6 +1,7 @@
-package se.iths.service;
+package se.iths.Validator;
 
 import se.iths.entity.Student;
+import se.iths.service.StudentService;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;

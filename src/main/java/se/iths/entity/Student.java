@@ -1,9 +1,11 @@
 package se.iths.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
 @Entity
 public class Student {
@@ -25,25 +27,15 @@ public class Student {
     @Size(min = 9, max = 13)
     private String phoneNumber;
 
-    private LocalDate signUpDate;
+    public Student() {}
 
-    @PrePersist
-    public void getCurrentDate() {
-        setSignUpDate(LocalDate.now());
+    public Student(@NotEmpty @Size(min = 2) String firstName, @NotEmpty @Size(min = 2) String lastName, @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
     }
 
-    @PostPersist
-    public void itemPersisted() {
-        System.out.println("Student record added to database");
-    }
-
-    public LocalDate getSignUpDate() {
-        return signUpDate;
-    }
-
-    public void setSignUpDate(LocalDate signUpDate) {
-        this.signUpDate = signUpDate;
-    }
 
     public Long getId() {
         return id;
