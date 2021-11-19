@@ -1,11 +1,11 @@
 package se.iths.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -22,14 +22,22 @@ public class Student {
     private String email;
     @Size(min = 9, max = 13)
     private String phoneNumber;
+    @ManyToMany(mappedBy = "enrolledStudents", cascade = CascadeType.ALL)
+    private List<Subject> enrolledCourses = new ArrayList<>();
 
     public Student() {}
 
-    public Student(@NotEmpty @Size(min = 2) String firstName, @NotEmpty @Size(min = 2) String lastName, @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber) {
+    public Student(@NotEmpty @Size(min = 2) String firstName, @NotEmpty @Size(min = 2) String lastName, @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber, List<Subject> enrolledCourses) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.enrolledCourses = enrolledCourses;
+    }
+
+    public void addSubject(Subject subject) {
+        enrolledCourses.add(subject);
+        subject.addStudent(this);
     }
 
     public Long getId() {
@@ -71,6 +79,15 @@ public class Student {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @JsonbTransient
+    public List<Subject> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public void setEnrolledCourses(List<Subject> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
     }
 
 }

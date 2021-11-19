@@ -1,11 +1,10 @@
 package se.iths.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Subject {
@@ -16,12 +15,19 @@ public class Subject {
     @NotEmpty
     @Size(min = 2)
     private String name;
+    @ManyToMany
+    private List<Student> enrolledStudents = new ArrayList<>();
 
 
     public Subject() {}
 
-    public Subject(@NotEmpty @Size(min = 2) String name) {
+    public Subject(@NotEmpty @Size(min = 2) String name, List<Student> enrolledStudents) {
         this.name = name;
+        this.enrolledStudents = enrolledStudents;
+    }
+
+    public void addStudent(Student student) {
+        enrolledStudents.add(student);
     }
 
     public long getId() {
@@ -39,5 +45,14 @@ public class Subject {
     public void setName(String name) {
         this.name = name;
     }
+
+    public List<Student> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public void setEnrolledStudents(List<Student> enrolledStudents) {
+        this.enrolledStudents = enrolledStudents;
+    }
+
 
 }

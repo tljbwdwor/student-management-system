@@ -19,7 +19,7 @@ public class StudentValidator {
     public boolean validateFirstName(Student student) {
         if (student.getFirstName().isEmpty() || student.getFirstName().getBytes().length < 2) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: firstNameRequiredMin2Characters")
+                    .entity("message: studentFirstNameRequiredMin2Characters")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -27,7 +27,7 @@ public class StudentValidator {
     public boolean validateFirstNameString(String firstName) {
         if (firstName.isEmpty() || firstName.getBytes().length < 2) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: firstNameRequiredMin2Characters")
+                    .entity("message: studentFirstNameRequiredMin2Characters")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -35,7 +35,7 @@ public class StudentValidator {
     public boolean validateLastName(Student student) {
         if (student.getLastName().isEmpty() || student.getLastName().getBytes().length < 2) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: lastNameRequiredMin2Characters")
+                    .entity("message: studentLastNameRequiredMin2Characters")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -43,7 +43,7 @@ public class StudentValidator {
     public boolean validateLastNameString(String lastName) {
         if (lastName.isEmpty() || lastName.getBytes().length < 2) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: lastNameRequiredMin2Characters")
+                    .entity("message: studentLastNameRequiredMin2Characters")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -51,7 +51,7 @@ public class StudentValidator {
     public boolean validateEmail(Student student) {
         if (student.getEmail().isEmpty() || student.getEmail().isBlank()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: emailRequired")
+                    .entity("message: studentEmailRequired")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -59,7 +59,7 @@ public class StudentValidator {
     public boolean validateEmailString(String email) {
         if (email.isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: emailRequired")
+                    .entity("message: studentEmailRequired")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -67,7 +67,7 @@ public class StudentValidator {
     public boolean validatePhoneNumber(String phoneNumber) {
         if (phoneNumber.isEmpty() || ((phoneNumber.getBytes().length < 9) || (phoneNumber.getBytes().length > 13))) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: invalidPhoneNumber")
+                    .entity("message: invalidStudentPhoneNumber")
                     .type(MediaType.APPLICATION_JSON_TYPE).build());
         } else return true;
     }
@@ -75,7 +75,7 @@ public class StudentValidator {
     public boolean verifyStudentExists(Long id) {
         if (studentService.findStudentById(id) == null) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("message: noRecordForId" + id)
+                    .entity("message: noStudentWithId" + id)
                     .type(MediaType.APPLICATION_JSON_TYPE).build());
         } else return true;
     }

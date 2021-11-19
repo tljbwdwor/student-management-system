@@ -27,7 +27,7 @@ public class SubjectValidator {
     public boolean validateNameString(String name) {
         if (name.isEmpty() || name.getBytes().length < 2) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: nameRequiresMin2Characters")
+                    .entity("message: subjectNameRequiresMin2Characters")
                     .type(MediaType.APPLICATION_JSON).build());
         } else return true;
     }
@@ -35,7 +35,7 @@ public class SubjectValidator {
     public boolean verifySubjectExists(Long id) {
         if (subjectService.findSubjectById(id) == null) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-            .entity("message: noRecordForId" + id)
+            .entity("message: noSubjectWithId" + id)
             .type(MediaType.APPLICATION_JSON_TYPE).build());
         } else return true;
     }
