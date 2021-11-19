@@ -84,7 +84,7 @@ public class StudentValidator {
         List<Student> studentList = studentService.findAllStudents();
         if (studentList.isEmpty()) {
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND)
-                    .entity("message: databaseContainsNoRecords")
+                    .entity("message: databaseContainsNoStudents")
                     .type(MediaType.APPLICATION_JSON_TYPE).build());
         } else return true;
     }

@@ -129,7 +129,7 @@ public class StudentRest {
             studentService.deleteStudent(id);
             return Response
                     .status(202)
-                    .entity("message: deletedEntryWithId" + id).build();
+                    .entity("message: deletedStudentWithId" + id).build();
         } else return Response.notModified().build();
     }
 

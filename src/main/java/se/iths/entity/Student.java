@@ -12,18 +12,14 @@ public class Student {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id private Long id;
-
     @NotEmpty
     @Size(min = 2)
     private String firstName;
-
     @NotEmpty
     @Size(min = 2)
     private String lastName;
-
     @NotEmpty
     private String email;
-
     @Size(min = 9, max = 13)
     private String phoneNumber;
 
@@ -35,7 +31,6 @@ public class Student {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
-
 
     public Long getId() {
         return id;
