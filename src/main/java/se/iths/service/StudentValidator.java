@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Transactional
-public class Validation {
+public class StudentValidator {
 
     @Inject
     StudentService studentService;
