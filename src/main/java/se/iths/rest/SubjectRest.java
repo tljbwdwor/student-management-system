@@ -4,6 +4,7 @@ import se.iths.Validator.StudentValidator;
 import se.iths.Validator.SubjectValidator;
 import se.iths.Validator.TeacherValidator;
 import se.iths.entity.Subject;
+import se.iths.service.StudentService;
 import se.iths.service.SubjectService;
 
 import javax.inject.Inject;
@@ -19,6 +20,8 @@ public class SubjectRest {
 
     @Inject
     SubjectService subjectService;
+    @Inject
+    StudentService studentService;
     @Inject
     SubjectValidator subjectValidator;
     @Inject
