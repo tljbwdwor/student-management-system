@@ -38,36 +38,36 @@ public class TeacherService {
     }
 
     public Teacher updateFirstName(Long id, String firstName) {
-        Teacher foundTeacher = entityManager.find(Teacher.class, id);
+        Teacher foundTeacher = findTeacherById(id);
         foundTeacher.setFirstName(firstName);
         return entityManager.merge(foundTeacher);
     }
 
     public Teacher updateLastName(Long id, String lastName) {
-        Teacher foundTeacher = entityManager.find(Teacher.class, id);
+        Teacher foundTeacher = findTeacherById(id);
         foundTeacher.setLastName(lastName);
         return entityManager.merge(foundTeacher);
     }
 
     public Teacher updateEmail(Long id, String email) {
-        Teacher foundTeacher = entityManager.find(Teacher.class, id);
+        Teacher foundTeacher = findTeacherById(id);
         foundTeacher.setEmail(email);
         return entityManager.merge(foundTeacher);
     }
 
     public Teacher updatePhoneNumber(Long id, String phoneNumber) {
-        Teacher foundTeacher = entityManager.find(Teacher.class, id);
+        Teacher foundTeacher = findTeacherById(id);
         foundTeacher.setPhoneNumber(phoneNumber);
         return entityManager.merge(foundTeacher);
     }
 
     public void deleteTeacher(Long id) {
-        Teacher teacher = entityManager.find(Teacher.class, id);
+        Teacher teacher = findTeacherById(id);
         entityManager.remove(teacher);
     }
 
     public void addTeacherToSubject(Long teacher_id, Long subject_id) {
-        Teacher teacher = entityManager.find(Teacher.class, teacher_id);
+        Teacher teacher = findTeacherById(teacher_id);
         Subject subject = entityManager.find(Subject.class, subject_id);
         teacher.addSubject(subject);
     }

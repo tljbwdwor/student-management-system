@@ -38,36 +38,36 @@ public class StudentService {
     }
 
     public Student updateFirstName(Long id, String firstName) {
-        Student foundStudent = entityManager.find(Student.class, id);
+        Student foundStudent = findStudentById(id);
         foundStudent.setFirstName(firstName);
         return entityManager.merge(foundStudent);
     }
 
     public Student updateLastName(Long id, String lastName) {
-        Student foundStudent = entityManager.find(Student.class, id);
+        Student foundStudent = findStudentById(id);
         foundStudent.setLastName(lastName);
         return entityManager.merge(foundStudent);
     }
 
     public Student updateEmail(Long id, String email) {
-        Student foundStudent = entityManager.find(Student.class, id);
+        Student foundStudent = findStudentById(id);
         foundStudent.setEmail(email);
         return entityManager.merge(foundStudent);
     }
 
     public Student updatePhoneNumber(Long id, String phoneNumber) {
-        Student foundStudent = entityManager.find(Student.class, id);
+        Student foundStudent = findStudentById(id);
         foundStudent.setPhoneNumber(phoneNumber);
         return entityManager.merge(foundStudent);
     }
 
     public void deleteStudent(Long id) {
-        Student student = entityManager.find(Student.class, id);
+        Student student = findStudentById(id);
         entityManager.remove(student);
     }
 
     public void addSubjectToStudent(Long student_id, Long subject_id) {
-        Student student = entityManager.find(Student.class, student_id);
+        Student student = findStudentById(student_id);
         Subject subject = entityManager.find(Subject.class, subject_id);
         student.addSubject(subject);
     }

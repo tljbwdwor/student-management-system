@@ -32,17 +32,17 @@ public class SubjectService {
     }
 
     public void deleteSubject(Long id) {
-        Subject subject = entityManager.find(Subject.class, id);
+        Subject subject = findSubjectById(id);
         entityManager.remove(subject);
     }
 
     public void removeTeacherFromSubject(Long id) {
-        Subject subject = entityManager.find(Subject.class, id);
+        Subject subject = findSubjectById(id);
         subject.setTeacher(null);
     }
 
     public void removeStudentFromSubject(Long id, Long student_id) {
-        Subject subject = entityManager.find(Subject.class, id);
+        Subject subject = findSubjectById(id);
         Student student = entityManager.find(Student.class, student_id);
         student.getEnrolledCourses().remove(subject);
         subject.getEnrolledStudents().remove(student);
