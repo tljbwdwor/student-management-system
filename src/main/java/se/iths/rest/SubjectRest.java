@@ -2,8 +2,9 @@ package se.iths.rest;
 
 import se.iths.Validator.StudentValidator;
 import se.iths.Validator.SubjectValidator;
-import se.iths.Validator.TeacherValidator;
 import se.iths.entity.Subject;
+import se.iths.Exception.EntityNotFound;
+import se.iths.Exception.NotModified;
 import se.iths.service.SubjectService;
 
 import javax.inject.Inject;
@@ -22,8 +23,6 @@ public class SubjectRest {
     @Inject
     SubjectValidator subjectValidator;
     @Inject
-    TeacherValidator teacherValidator;
-    @Inject
     StudentValidator studentValidator;
 
     @Path("create")
@@ -34,7 +33,7 @@ public class SubjectRest {
             return Response
                     .status(201)
                     .entity(subject).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Subject Not Created");
     }
 
     @Path("getall")
@@ -45,7 +44,7 @@ public class SubjectRest {
             return Response
                     .status(200)
                     .entity(subjectList).build();
-        } else return Response.status(404).build();
+        } else throw new EntityNotFound("No Records Found In Subject Table");
     }
 
     @Path("getbyid/{id}")
@@ -56,18 +55,18 @@ public class SubjectRest {
             return Response
                     .status(200)
                     .entity(subject).build();
-        } else return Response.notModified().build();
+        } else throw new EntityNotFound("No Subject Found With Id_" + id);
     }
 
     @Path("replace")
     @PUT
     public Response replaceSubject(Subject subject) {
-        if (subjectValidator.validateName(subject)) {
+        if (subjectValidator.validateName(subject) && subjectValidator.validateNameString(subject.getName())) {
             subjectService.updateSubject(subject);
             return Response
                     .status(202)
                     .entity(subject).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Subject Not Updated");
     }
 
     @Path("delete/{id}")
@@ -77,8 +76,8 @@ public class SubjectRest {
             subjectService.deleteSubject(id);
             return Response
                     .status(202)
-                    .entity("message: deletedSubjectWithId" + id).build();
-        } else return Response.notModified().build();
+                    .entity("Subject With Id_" + id + "Has Been Deleted").build();
+        } else throw new NotModified("Subject Not Updated");
     }
 
     @Path("removeteacher/{subject_id}")
@@ -88,8 +87,8 @@ public class SubjectRest {
             subjectService.removeTeacherFromSubject(subject_id);
             return  Response
                     .status(202)
-                    .entity("message: teacherRemovedFromSubject" + subject_id).build();
-        } else return Response.notModified().build();
+                    .entity("Teacher Removed From Subject_" + subject_id).build();
+        } else throw new NotModified("Teacher Not Removed From Subject");
     }
 
     @Path("removestudent/{subject_id}/{student_id}")
@@ -99,7 +98,7 @@ public class SubjectRest {
             subjectService.removeStudentFromSubject(subject_id, student_id);
             return Response
                     .status(202)
-                    .entity("message: studentWithId" + student_id + "RemovedFromSubject" + subject_id).build();
-        } else return Response.notModified().build();
+                    .entity("Student_" + student_id + "Removed From Subject_" + subject_id).build();
+        } else throw new NotModified("Student Not Removed From Subject");
     }
 }

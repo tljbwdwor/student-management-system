@@ -3,6 +3,8 @@ package se.iths.rest;
 import se.iths.Validator.SubjectValidator;
 import se.iths.Validator.TeacherValidator;
 import se.iths.entity.Teacher;
+import se.iths.Exception.EntityNotFound;
+import se.iths.Exception.NotModified;
 import se.iths.service.TeacherService;
 
 import javax.inject.Inject;
@@ -31,7 +33,7 @@ public class TeacherRest {
             return Response
                     .status(201)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Teacher Not Created");
     }
 
     @Path("getall")
@@ -42,7 +44,7 @@ public class TeacherRest {
             return Response
                     .status(200)
                     .entity(teacherList).build();
-        } else return Response.status(404).build();
+        } else throw new EntityNotFound("No Records Found In Teacher Table");
     }
 
     @Path("getbyid/{id}")
@@ -53,7 +55,7 @@ public class TeacherRest {
             return Response
                     .status(200)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new EntityNotFound("No Teacher Found With Id_" + id);
     }
 
     @Path("getbylastname")
@@ -61,10 +63,7 @@ public class TeacherRest {
     public Response getTeachersByLastName(@QueryParam("lastname") String lastName) {
         List<Teacher> teacherList = teacherService.findTeacherByLastName(lastName);
         if (teacherList.isEmpty()) {
-            return Response
-                    .status(404).
-                            entity("message: noTeachersWithLastNameOf " + lastName)
-                    .build();
+            throw new EntityNotFound("No Teachers With Last Name Of_" + lastName);
         } else return Response
                 .ok(teacherList)
                 .build();
@@ -78,7 +77,7 @@ public class TeacherRest {
             return Response
                     .status(202)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Teacher Not Updated");
     }
 
     @Path("update/firstname/{id}")
@@ -89,7 +88,7 @@ public class TeacherRest {
             return Response
                     .status(202)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Teacher First Name Not Updated");
     }
 
     @Path("update/lastname/{id}")
@@ -100,7 +99,7 @@ public class TeacherRest {
             return Response
                     .status(202)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Teacher Last Name Not Updated");
     }
 
     @Path("update/email/{id}")
@@ -111,7 +110,7 @@ public class TeacherRest {
             return Response
                     .status(202)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Teacher Email Not Updated");
     }
 
     @Path("update/phonenumber/{id}")
@@ -122,7 +121,7 @@ public class TeacherRest {
             return Response
                     .status(202)
                     .entity(teacher).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Teacher Phone Not Updated");
     }
 
     @Path("delete/{id}")
@@ -132,8 +131,8 @@ public class TeacherRest {
             teacherService.deleteTeacher(id);
             return Response
                     .status(202)
-                    .entity("message: deletedTeacherWithId" + id).build();
-        } else return Response.notModified().build();
+                    .entity("Deleted Entry With Id_" + id).build();
+        } else throw new NotModified("Teacher Not Deleted");
     }
 
     @Path("addsubject/{teacher_id}/{subject_id}")
@@ -143,8 +142,8 @@ public class TeacherRest {
             teacherService.addTeacherToSubject(teacher_id,subject_id);
             return Response
                     .status(201)
-                    .entity("message: teacherAddedToSubject").build();
-        } else return Response.notModified().build();
+                    .entity("Teacher Added To Subject_" + subject_id).build();
+        } else throw new NotModified("Teacher Not Added To Subject");
     }
 
 }

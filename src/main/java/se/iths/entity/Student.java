@@ -22,7 +22,7 @@ public class Student {
     private String email;
     @Size(min = 9, max = 13)
     private String phoneNumber;
-    @ManyToMany(mappedBy = "enrolledStudents", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "enrolledStudents", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Subject> enrolledCourses = new ArrayList<>();
 
     public Student() {}

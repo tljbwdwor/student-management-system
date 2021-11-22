@@ -1,9 +1,11 @@
 package se.iths.rest;
 
+import se.iths.Validator.StudentValidator;
 import se.iths.Validator.SubjectValidator;
 import se.iths.entity.Student;
+import se.iths.Exception.EntityNotFound;
+import se.iths.Exception.NotModified;
 import se.iths.service.StudentService;
-import se.iths.Validator.StudentValidator;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -31,7 +33,7 @@ public class StudentRest {
             return Response
                     .status(201)
                     .entity(student).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Student Not Created");
     }
 
     @Path("getall")
@@ -42,7 +44,7 @@ public class StudentRest {
             return Response
                     .status(200)
                     .entity(studentList).build();
-        } else return Response.status(404).build();
+        } else throw new EntityNotFound("No Records Found In Student Table");
     }
 
     @Path("getbyid/{id}")
@@ -53,7 +55,7 @@ public class StudentRest {
             return Response
                     .status(200)
                     .entity(student).build();
-        } else return Response.notModified().build();
+        } else throw new EntityNotFound("No Student Found With Id_" + id);
     }
 
     @Path("getbylastname")
@@ -61,10 +63,7 @@ public class StudentRest {
     public Response getStudentsByLastName(@QueryParam("lastname") String lastName) {
         List<Student> studentList = studentService.findStudentByLastName(lastName);
         if (studentList.isEmpty()) {
-            return Response
-                    .status(404).
-                    entity("message: noStudentsWithLastNameOf " + lastName)
-                    .build();
+            throw new EntityNotFound("No Students With Last Name Of_" + lastName);
         } else return Response
                 .ok(studentList)
                 .build();
@@ -78,7 +77,7 @@ public class StudentRest {
            return Response
                    .status(202)
                    .entity(student).build();
-       } else return Response.notModified().build();
+       } else throw new NotModified("Student Not Updated");
     }
 
     @Path("update/firstname/{id}")
@@ -89,7 +88,7 @@ public class StudentRest {
            return Response
                    .status(202)
                    .entity(student).build();
-       } else return Response.notModified().build();
+       } else throw new NotModified("Student First Name Not Updated");
     }
 
     @Path("update/lastname/{id}")
@@ -100,7 +99,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity(student).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Student Last Name Not Updated");
     }
 
     @Path("update/email/{id}")
@@ -111,7 +110,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity(student).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Student Email Not Updated");
     }
 
     @Path("update/phonenumber/{id}")
@@ -122,7 +121,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity(student).build();
-        } else return Response.notModified().build();
+        } else throw new NotModified("Student Phone Not Updated");
     }
 
     @Path("delete/{id}")
@@ -132,8 +131,8 @@ public class StudentRest {
             studentService.deleteStudent(id);
             return Response
                     .status(202)
-                    .entity("message: deletedStudentWithId" + id).build();
-        } else return Response.notModified().build();
+                    .entity("Deleted Entry With Id_" + id).build();
+        } else throw new NotModified("Student Not Deleted");
     }
 
     @Path("addsubject/{student_id}/{subject_id}")
@@ -143,8 +142,8 @@ public class StudentRest {
             studentService.addSubjectToStudent(student_id,subject_id);
             return Response
                     .status(201)
-                    .entity("message: subjectAddedToStudent").build();
-        } else return Response.notModified().build();
+                    .entity("Student Has Been Enrolled").build();
+        } else throw new NotModified("Student Not Enrolled");
     }
 
 }
