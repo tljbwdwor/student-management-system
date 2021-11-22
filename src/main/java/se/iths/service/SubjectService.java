@@ -45,6 +45,7 @@ public class SubjectService {
         Subject subject = entityManager.find(Subject.class, id);
         Student student = entityManager.find(Student.class, student_id);
         student.getEnrolledCourses().remove(subject);
+        subject.getEnrolledStudents().remove(student);
     }
 
 }
