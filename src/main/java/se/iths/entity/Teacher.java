@@ -22,7 +22,7 @@ public class Teacher {
     private String email;
     @Size(min = 9, max = 13)
     private String phoneNumber;
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<Subject> subjects = new ArrayList<>();
 
     public  Teacher() {}
