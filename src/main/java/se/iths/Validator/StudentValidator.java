@@ -1,6 +1,7 @@
 package se.iths.Validator;
 
 import se.iths.entity.Student;
+import se.iths.Exception.InvalidEntry;
 import se.iths.service.StudentService;
 
 import javax.inject.Inject;
@@ -18,9 +19,7 @@ public class StudentValidator {
 
     public boolean validateFirstName(Student student) {
         if (student.getFirstName().isEmpty() || student.getFirstName().getBytes().length < 2) {
-            throw new WebApplicationException(Response.status(Response.Status.NOT_ACCEPTABLE)
-                    .entity("message: studentFirstNameRequiredMin2Characters")
-                    .type(MediaType.APPLICATION_JSON).build());
+            throw new InvalidEntry("Student Requires First Name Of Min 2 Characters");
         } else return true;
     }
 

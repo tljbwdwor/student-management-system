@@ -1,4 +1,4 @@
-package se.iths.exception;
+package se.iths.Exception;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
