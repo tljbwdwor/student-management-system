@@ -105,4 +105,21 @@ public class SubjectRest {
                     .entity("message: studentWithId" + student_id + "RemovedFromSubject" + subject_id).build();
         } else return Response.notModified().build();
     }
+
+    @Path("teachers")
+    @GET
+    public String teachersBySubject() {
+        List<Subject> subjects = subjectService.findAllSubjects();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < subjects.size(); i++) {
+            stringBuilder.append(subjects.get(i).getName());
+            stringBuilder.append(":");
+            stringBuilder.append(subjects.get(i).getTeacher().getFirstName());
+            stringBuilder.append("_");
+            stringBuilder.append(subjects.get(i).getTeacher().getLastName());
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
 }
