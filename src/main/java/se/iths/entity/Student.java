@@ -22,17 +22,16 @@ public class Student {
     private String email;
     @Size(min = 9, max = 13)
     private String phoneNumber;
-    @ManyToMany(mappedBy = "enrolledStudents", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "enrolledStudents")
     private List<Subject> enrolledCourses = new ArrayList<>();
 
     public Student() {}
 
-    public Student(@NotEmpty @Size(min = 2) String firstName, @NotEmpty @Size(min = 2) String lastName, @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber, List<Subject> enrolledCourses) {
+    public Student(@NotEmpty @Size(min = 2) String firstName, @NotEmpty @Size(min = 2) String lastName, @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.enrolledCourses = enrolledCourses;
     }
 
     public void addSubject(Subject subject) {

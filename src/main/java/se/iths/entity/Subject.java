@@ -15,7 +15,7 @@ public class Subject {
     @NotEmpty
     @Size(min = 2)
     private String name;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Student> enrolledStudents = new ArrayList<>();
     @ManyToOne
     private Teacher teacher;

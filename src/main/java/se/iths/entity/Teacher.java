@@ -22,18 +22,17 @@ public class Teacher {
     private String email;
     @Size(min = 9, max = 13)
     private String phoneNumber;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "teacher")
     private List<Subject> subjects = new ArrayList<>();
 
     public  Teacher() {}
 
     public Teacher(@NotEmpty @Size(min = 2) String firstName, @NotEmpty @Size(min = 2) String lastName,
-                   @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber, List<Subject> subjects) {
+                   @NotEmpty String email, @Size(min = 9, max = 13) String phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.subjects = subjects;
     }
 
     public void addSubject(Subject subject) {

@@ -22,13 +22,13 @@ public class SampleDataGenerator {
     @PostConstruct
     public void generateData() {
 
-        Student student1 = new Student("Adam","Adamsson","email@1.com","0192837465",new ArrayList<>());
-        Student student2 = new Student("Brian", "Bobcat", "email@2.com","9283746501", new ArrayList<>());
-        Student student3 = new Student("Christine", "Christensson", "email@3.com", "3847561029", new ArrayList<>());
-        Student student4 = new Student("David", "Davidsson", "email@4.com", "7465019283", new ArrayList<>());
+        Student student1 = new Student("Adam","Adamsson","email@1.com","0192837465");
+        Student student2 = new Student("Brian", "Bobcat", "email@2.com","9283746501");
+        Student student3 = new Student("Christine", "Christensson", "email@3.com", "3847561029");
+        Student student4 = new Student("David", "Davidsson", "email@4.com", "7465019283");
 
-        Teacher teacher1 = new Teacher("Guthrie", "Govan", "guthrie@govan.co.uk", "0165738293764", new ArrayList<>());
-        Teacher teacher2 = new Teacher("John","Petrucci","john@dt.com","02937467283", new ArrayList<>());
+        Teacher teacher1 = new Teacher("Guthrie", "Govan", "guthrie@govan.co.uk", "0165738293764");
+        Teacher teacher2 = new Teacher("John","Petrucci","john@dt.com","02937467283");
 
         Subject subject1 = new Subject("Advanced shredding", new Teacher(), new ArrayList<>());
         Subject subject2 = new Subject("Moving Beyond Pentatonics", new Teacher(), new ArrayList<>());
