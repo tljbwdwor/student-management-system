@@ -57,10 +57,10 @@ public class StudentValidator {
         }
     }
 
-    public boolean verifyStudentExists(Long id) {
+    public void verifyStudentExists(Long id) {
         if (studentService.findStudentById(id) == null) {
             throw new EntityNotFound("No Student Found With Id_ " + id);
-        } else return true;
+        }
     }
 
     public void verifyDatabaseNotEmpty() {

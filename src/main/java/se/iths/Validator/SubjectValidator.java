@@ -15,29 +15,29 @@ public class SubjectValidator {
     @Inject
     SubjectService subjectService;
 
-    public boolean validateName(Subject subject) {
+    public void validateName(Subject subject) {
         if (subject.getName().isEmpty() || subject.getName().getBytes().length < 2) {
             throw new InvalidEntry("Subject Requires Name Of Min 2 Characters");
-        } else return true;
+        }
     }
 
-    public boolean validateNameString(String name) {
+    public void validateNameString(String name) {
         if (name.isEmpty() || name.getBytes().length < 2) {
             throw new InvalidEntry("Subject Requires Name Of Min 2 Characters");
-        } else return true;
+        }
     }
 
-    public boolean verifySubjectExists(Long id) {
+    public void verifySubjectExists(Long id) {
         if (subjectService.findSubjectById(id) == null) {
             throw new EntityNotFound("No Subject Found With Id_" + id);
-        } else return true;
+        }
     }
 
-    public boolean verifyDatabaseNotEmpty() {
+    public void verifyDatabaseNotEmpty() {
         List<Subject> subjectList = subjectService.findAllSubjects();
         if (subjectList.isEmpty()) {
             throw new EntityNotFound("Database Contains No Subject Records");
-        } else return true;
+        }
     }
 
 }
