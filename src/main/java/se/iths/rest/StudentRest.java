@@ -120,7 +120,7 @@ public class StudentRest {
         studentValidator.verifyStudentExists(id);
 
         studentService.deleteStudent(id);
-            return Response.status(202).entity("Deleted Entry With Id_" + id).build();
+            return Response.status(202).entity("Deleted Student With Id_" + id).build();
     }
 
     @Path("addsubject/{student_id}/{subject_id}")
