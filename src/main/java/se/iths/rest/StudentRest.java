@@ -2,6 +2,7 @@ package se.iths.rest;
 
 import se.iths.Exception.EntityNotFound;
 import se.iths.Exception.NotModified;
+import se.iths.Exception.ResponseMessage;
 import se.iths.entity.Student;
 import se.iths.service.StudentService;
 import se.iths.service.Validation;
@@ -128,7 +129,7 @@ public class StudentRest {
             studentService.deleteStudent(id);
             return Response
                     .status(202)
-                    .entity("Deleted Entry With Id_" + id).build();
+                    .entity(new ResponseMessage("Deleted entry with ID " + id)).build();
         } else throw new NotModified("Student not deleted");
     }
 
