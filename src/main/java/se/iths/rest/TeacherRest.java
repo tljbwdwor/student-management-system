@@ -1,7 +1,7 @@
 package se.iths.rest;
 
 import se.iths.Exception.EntityNotFound;
-import se.iths.Exception.ExceptionMessage;
+import se.iths.Exception.ResponseMessage;
 import se.iths.Validator.SubjectValidator;
 import se.iths.Validator.TeacherValidator;
 import se.iths.entity.Teacher;
@@ -121,7 +121,7 @@ public class TeacherRest {
         teacherValidator.verifyTeacherExists(id);
 
         teacherService.deleteTeacher(id);
-            return Response.status(202).entity(new ExceptionMessage("Deleted teacher with ID " + id)).build();
+            return Response.status(202).entity(new ResponseMessage("Deleted teacher with ID " + id)).build();
     }
 
     @Path("addsubject/{teacher_id}/{subject_id}")
@@ -131,7 +131,7 @@ public class TeacherRest {
         subjectValidator.verifySubjectExists(subject_id);
 
         teacherService.addTeacherToSubject(teacher_id,subject_id);
-            return Response.status(201).entity(new ExceptionMessage("Teacher added to subject " + subject_id)).build();
+            return Response.status(201).entity(new ResponseMessage("Teacher added to subject " + subject_id)).build();
     }
 
 }

@@ -1,7 +1,7 @@
 package se.iths.rest;
 
 import se.iths.Exception.EntityNotFound;
-import se.iths.Exception.ExceptionMessage;
+import se.iths.Exception.ResponseMessage;
 import se.iths.Validator.StudentValidator;
 import se.iths.Validator.SubjectValidator;
 import se.iths.entity.Student;
@@ -121,7 +121,7 @@ public class StudentRest {
         studentValidator.verifyStudentExists(id);
 
         studentService.deleteStudent(id);
-            return Response.status(202).entity(new ExceptionMessage("Deleted student with ID " + id)).build();
+            return Response.status(202).entity(new ResponseMessage("Deleted student with ID " + id)).build();
     }
 
     @Path("addsubject/{student_id}/{subject_id}")
@@ -131,7 +131,7 @@ public class StudentRest {
         subjectValidator.verifySubjectExists(subject_id);
 
         studentService.addSubjectToStudent(student_id,subject_id);
-            return Response.status(201).entity(new ExceptionMessage("Student has been enrolled")).build();
+            return Response.status(201).entity(new ResponseMessage("Student has been enrolled")).build();
     }
 
 }

@@ -2,11 +2,11 @@ package se.iths.Exception;
 
 import javax.json.bind.annotation.JsonbProperty;
 
-public class ExceptionMessage {
+public class ResponseMessage {
 
     private final String response;
 
-    public ExceptionMessage(String response) {
+    public ResponseMessage(String response) {
         this.response = response;
     }
 
