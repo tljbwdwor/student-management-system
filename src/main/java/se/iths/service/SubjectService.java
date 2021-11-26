@@ -44,8 +44,16 @@ public class SubjectService {
     public void removeStudentFromSubject(Long id, Long student_id) {
         Subject subject = findSubjectById(id);
         Student student = entityManager.find(Student.class, student_id);
-        student.getEnrolledCourses().remove(subject);
-        subject.getEnrolledStudents().remove(student);
+
+        List<Subject> subjects = student.getEnrolledCourses();
+        subjects.remove(subject);
+        student.setEnrolledCourses(subjects);
+        entityManager.merge(student_id);
+
+        List<Student> students = subject.getEnrolledStudents();
+        students.remove(student);
+        subject.setEnrolledStudents(students);
+        entityManager.merge(id);
     }
 
 }

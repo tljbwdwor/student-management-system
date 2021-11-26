@@ -58,7 +58,7 @@ public class TeacherRest {
     public Response getTeachersByLastName(@QueryParam("lastname") String lastName) {
         List<Teacher> teacherList = teacherService.findTeacherByLastName(lastName);
         if (teacherList.isEmpty()) {
-            throw new EntityNotFound("No Teachers With Last Name Of_" + lastName);
+            throw new EntityNotFound("No teachers with last name of " + lastName);
         } else
             return Response.ok(teacherList).build();
     }
@@ -120,7 +120,7 @@ public class TeacherRest {
         teacherValidator.verifyTeacherExists(id);
 
         teacherService.deleteTeacher(id);
-            return Response.status(202).entity("Deleted Teacher With Id_" + id).build();
+            return Response.status(202).entity("Deleted teacher with ID " + id).build();
     }
 
     @Path("addsubject/{teacher_id}/{subject_id}")
@@ -130,7 +130,7 @@ public class TeacherRest {
         subjectValidator.verifySubjectExists(subject_id);
 
         teacherService.addTeacherToSubject(teacher_id,subject_id);
-            return Response.status(201).entity("Teacher Added To Subject_" + subject_id).build();
+            return Response.status(201).entity("Teacher added to subject " + subject_id).build();
     }
 
 }

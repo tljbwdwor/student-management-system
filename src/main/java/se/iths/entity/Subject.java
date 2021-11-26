@@ -15,11 +15,10 @@ public class Subject {
     @NotEmpty
     @Size(min = 2)
     private String name;
-    @ManyToMany
-    private List<Student> enrolledStudents = new ArrayList<>();
     @ManyToOne
     private Teacher teacher;
-
+    @ManyToMany(mappedBy = "enrolledCourses", cascade = CascadeType.ALL)
+    private List<Student> enrolledStudents = new ArrayList<>();
 
     public Subject() {}
 

@@ -66,7 +66,7 @@ public class SubjectRest {
         subjectValidator.verifySubjectExists(id);
 
         subjectService.deleteSubject(id);
-            return Response.status(202).entity("Subject With Id_" + id + "Has Been Deleted").build();
+            return Response.status(202).entity("Subject with ID " + id + " has been deleted").build();
     }
 
     @Path("removeteacher/{subject_id}")
@@ -75,7 +75,7 @@ public class SubjectRest {
         subjectValidator.verifySubjectExists(subject_id);
 
         subjectService.removeTeacherFromSubject(subject_id);
-            return  Response.status(202).entity("Teacher Removed From Subject_" + subject_id).build();
+            return  Response.status(202).entity("Teacher removed from subject " + subject_id).build();
     }
 
     @Path("removestudent/{subject_id}/{student_id}")
@@ -85,6 +85,6 @@ public class SubjectRest {
         studentValidator.verifyStudentExists(student_id);
 
         subjectService.removeStudentFromSubject(subject_id, student_id);
-            return Response.status(202).entity("Student_" + student_id + "Removed From Subject_" + subject_id).build();
+            return Response.status(202).entity("Student " + student_id + " removed from subject " + subject_id).build();
     }
 }

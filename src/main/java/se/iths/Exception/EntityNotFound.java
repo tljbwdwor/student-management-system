@@ -9,8 +9,8 @@ public class EntityNotFound extends WebApplicationException {
     public EntityNotFound(String errorMessage) {
         super(Response.status(Response
                 .Status.NOT_FOUND)
-                .entity(errorMessage)
-                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(new ExceptionMessage(errorMessage))
+                .type(MediaType.APPLICATION_JSON)
                 .build());
     }
 

@@ -22,7 +22,12 @@ public class Student {
     private String email;
     @Size(min = 9, max = 13)
     private String phoneNumber;
-    @ManyToMany(mappedBy = "enrolledStudents")
+    @JsonbTransient
+    @ManyToMany
+    @JoinTable(
+            name = "student_subjects",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
     private List<Subject> enrolledCourses = new ArrayList<>();
 
     public Student() {}
@@ -80,7 +85,6 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
-    @JsonbTransient
     public List<Subject> getEnrolledCourses() {
         return enrolledCourses;
     }

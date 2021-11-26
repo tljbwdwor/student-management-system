@@ -17,26 +17,26 @@ public class SubjectValidator {
 
     public void validateName(Subject subject) {
         if (subject.getName().isEmpty() || subject.getName().getBytes().length < 2) {
-            throw new InvalidEntry("Subject Requires Name Of Min 2 Characters");
+            throw new InvalidEntry("Subject requires name of min 2 characters");
         }
     }
 
     public void validateNameString(String name) {
         if (name.isEmpty() || name.getBytes().length < 2) {
-            throw new InvalidEntry("Subject Requires Name Of Min 2 Characters");
+            throw new InvalidEntry("Subject requires name of min 2 characters");
         }
     }
 
     public void verifySubjectExists(Long id) {
         if (subjectService.findSubjectById(id) == null) {
-            throw new EntityNotFound("No Subject Found With Id_" + id);
+            throw new EntityNotFound("No subject found with ID " + id);
         }
     }
 
     public void verifyDatabaseNotEmpty() {
         List<Subject> subjectList = subjectService.findAllSubjects();
         if (subjectList.isEmpty()) {
-            throw new EntityNotFound("Database Contains No Subject Records");
+            throw new EntityNotFound("Database contains no subject records");
         }
     }
 

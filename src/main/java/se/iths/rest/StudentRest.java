@@ -58,7 +58,7 @@ public class StudentRest {
     public Response getStudentsByLastName(@QueryParam("lastname") String lastName) {
         List<Student> studentList = studentService.findStudentByLastName(lastName);
         if (studentList.isEmpty()) {
-            throw new EntityNotFound("No Students With Last Name Of_" + lastName);
+            throw new EntityNotFound("No students with last name of " + lastName);
         } else
             return Response.ok(studentList).build();
     }
@@ -120,7 +120,7 @@ public class StudentRest {
         studentValidator.verifyStudentExists(id);
 
         studentService.deleteStudent(id);
-            return Response.status(202).entity("Deleted Student With Id_" + id).build();
+            return Response.status(202).entity("Deleted student with ID " + id).build();
     }
 
     @Path("addsubject/{student_id}/{subject_id}")
@@ -130,7 +130,7 @@ public class StudentRest {
         subjectValidator.verifySubjectExists(subject_id);
 
         studentService.addSubjectToStudent(student_id,subject_id);
-            return Response.status(201).entity("Student Has Been Enrolled").build();
+            return Response.status(201).entity("Student has been enrolled").build();
     }
 
 }
