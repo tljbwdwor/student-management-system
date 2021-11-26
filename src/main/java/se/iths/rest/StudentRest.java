@@ -30,7 +30,7 @@ public class StudentRest {
             return Response
                     .status(201)
                     .entity(student).build();
-        } else throw new NotModified("Student Not Created");
+        } else throw new NotModified("Student not created");
     }
 
     @Path("getall")
@@ -41,7 +41,7 @@ public class StudentRest {
             return Response
                     .status(200)
                     .entity(studentList).build();
-        } else throw new EntityNotFound("No Records Found In Student Table");
+        } else throw new EntityNotFound("No records found in student table");
     }
 
     @Path("getbyid/{id}")
@@ -52,7 +52,7 @@ public class StudentRest {
             return Response
                     .status(200)
                     .entity(student).build();
-        } else throw new EntityNotFound("No Record Found For Id_" + id);
+        } else throw new EntityNotFound("No record found for ID " + id);
     }
 
     @Path("getbylastname")
@@ -60,7 +60,7 @@ public class StudentRest {
     public Response getStudentsByLastName(@QueryParam("lastname") String lastName) {
         List<Student> studentList = studentService.findStudentByLastName(lastName);
         if (studentList.isEmpty()) {
-            throw new EntityNotFound("No Students With Last Name Of_" + lastName);
+            throw new EntityNotFound("No students with last name of " + lastName);
         } else return Response
                 .ok(studentList)
                 .build();
@@ -74,7 +74,7 @@ public class StudentRest {
            return Response
                    .status(202)
                    .entity(student).build();
-       } else throw new NotModified("Student Not Updated");
+       } else throw new NotModified("Student not updated");
     }
 
     @Path("update/firstname/{id}")
@@ -85,7 +85,7 @@ public class StudentRest {
            return Response
                    .status(202)
                    .entity(student).build();
-       } else throw new NotModified("Student First Name Not Updated");
+       } else throw new NotModified("Student first name not updated");
     }
 
     @Path("update/lastname/{id}")
@@ -96,7 +96,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity(student).build();
-        } else throw new NotModified("Student Last Name Not Updated");
+        } else throw new NotModified("Student last name not updated");
     }
 
     @Path("update/email/{id}")
@@ -107,7 +107,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity(student).build();
-        } else throw new NotModified("Student Email Not Updated");
+        } else throw new NotModified("Student email not updated");
     }
 
     @Path("update/phonenumber/{id}")
@@ -118,7 +118,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity(student).build();
-        } else throw new NotModified("Student Phone Not Updated");
+        } else throw new NotModified("Student phone not updated");
     }
 
     @Path("delete/{id}")
@@ -129,7 +129,7 @@ public class StudentRest {
             return Response
                     .status(202)
                     .entity("Deleted Entry With Id_" + id).build();
-        } else throw new NotModified("Student Not Deleted");
+        } else throw new NotModified("Student not deleted");
     }
 
 }

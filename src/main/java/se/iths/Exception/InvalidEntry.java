@@ -9,8 +9,8 @@ public class InvalidEntry extends WebApplicationException {
     public InvalidEntry(String errorMessage) {
         super(Response.status(Response
                 .Status.NOT_ACCEPTABLE)
-                .entity(errorMessage)
-                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(new ExceptionMessage(errorMessage))
+                .type(MediaType.APPLICATION_JSON)
                 .build());
     }
 

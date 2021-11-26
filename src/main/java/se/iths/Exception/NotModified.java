@@ -9,8 +9,8 @@ public class NotModified extends WebApplicationException {
     public NotModified(String errorMessage) {
         super(Response.status(Response
                 .Status.NOT_MODIFIED)
-                .entity(errorMessage)
-                .type(MediaType.APPLICATION_JSON_TYPE)
+                .entity(new ExceptionMessage(errorMessage))
+                .type(MediaType.APPLICATION_JSON)
                 .build());
     }
 
