@@ -45,7 +45,10 @@ public class SubjectService {
         Subject subject = findSubjectById(id);
         Student student = entityManager.find(Student.class, student_id);
 
-        List<Subject> subjects = student.getEnrolledCourses();
+        student.getEnrolledCourses().remove(subject);
+        subject.getEnrolledStudents().remove(student);
+
+        /*List<Subject> subjects = student.getEnrolledCourses();
         subjects.remove(subject);
         student.setEnrolledCourses(subjects);
         entityManager.merge(student_id);
@@ -53,7 +56,7 @@ public class SubjectService {
         List<Student> students = subject.getEnrolledStudents();
         students.remove(student);
         subject.setEnrolledStudents(students);
-        entityManager.merge(id);
+        entityManager.merge(id);*/
     }
 
 }
